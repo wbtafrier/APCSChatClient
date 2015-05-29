@@ -25,4 +25,18 @@ public class GuiOperations {
 			FrameHandle.getPropertiesDialog().dispose();
 		}
 	}
+	
+	public static void switchToConsole() {
+		if (LoginPanel.isDisplayed()) {
+			if (FrameHandle.getFrame() != null) {
+				FrameHandle.getFrame().remove(FrameHandle.getLoginPanel());
+				LoginPanel.setDisplayed(false);
+				
+				FrameHandle.setupConsole();
+				FrameHandle.getPropertiesItem().setEnabled(true);
+				FrameHandle.getFrame().revalidate();
+				FrameHandle.getFrame().repaint();
+			}
+		}
+	}
 }
