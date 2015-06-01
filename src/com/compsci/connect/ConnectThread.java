@@ -53,6 +53,8 @@ public class ConnectThread extends Thread {
 		
 		try {
 			outStream = new ObjectOutputStream(clientSocket.getOutputStream());
+			
+			//Stupid thing is throwing an EOFException.
 			inStream = new ObjectInputStream(clientSocket.getInputStream());
 			
 			player = new Player(LoginPanel.getUsernameField().getText());

@@ -17,6 +17,7 @@ public class SloverseClient {
 	
 	public static void shutdownClient() {
 		userThread.setConnected(false);
+		System.exit(0);
 	}
 	
 	public static void connect() {
