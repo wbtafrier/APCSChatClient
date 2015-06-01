@@ -31,14 +31,14 @@ public class InputListener extends KeyAdapter implements ActionListener {
 				SloverseLogger.logErrorMessage(Level.WARNING, "Message is not in the correct format! Will not print out message.");
 				return;
 			}
-			else if (!SloverseClient.isConnected()) {
-				ClientConsole.printMessage(new Message(SloverseClient.SERVER, rawInput));
+			else if (!SloverseClient.getConnectThread().isConnected()) {
+				ClientConsole.printMessage(new Message(SloverseClient.getConnectThread().getPlayer(), rawInput));
 				ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Not connected to any server!"));
 				resetInputField();
 				return;
 			}
 			else {
-				Message input = new Message(SloverseClient.SERVER, rawInput);
+				Message input = new Message(SloverseClient.getConnectThread().getPlayer(), rawInput);
 				InputManager.sendMessage(input);
 				
 				inputHistory.add(0, rawInput);

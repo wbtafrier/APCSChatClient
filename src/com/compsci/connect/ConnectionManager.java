@@ -11,7 +11,7 @@ public class ConnectionManager {
 	public static void sendData(Object o) {
 		
 		try {
-			SloverseClient.getOutStream().writeObject(o);
+			SloverseClient.getConnectThread().getOutStream().writeObject(o);
 		} catch (IOException e) {
 			SloverseLogger.logErrorMessage(Level.SEVERE, "Error transmitting object over the network. :(");
 			e.printStackTrace();
