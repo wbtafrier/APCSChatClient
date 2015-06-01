@@ -27,11 +27,7 @@ public class InputListener extends KeyAdapter implements ActionListener {
 		
 		if (e.getSource().equals(FrameHandle.getInputField())) {
 			String rawInput = FrameHandle.getInputField().getText();
-			if (!InputManager.isMessageAcceptable(rawInput)) {
-				SloverseLogger.logErrorMessage(Level.WARNING, "Message is not in the correct format! Will not print out message.");
-				return;
-			}
-			else if (!SloverseClient.getConnectThread().isConnected()) {
+			if (!SloverseClient.getConnectThread().isConnected()) {
 				ClientConsole.printMessage(new Message(SloverseClient.SERVER, rawInput));
 				ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Not connected to any server!"));
 				resetInputField();

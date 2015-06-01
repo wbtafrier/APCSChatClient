@@ -15,6 +15,7 @@ import com.compsci.chat.Message;
 import com.compsci.core.SloverseClient;
 import com.compsci.gui.LoginPanel;
 import com.compsci.user.Player;
+import com.compsci.util.LoginHandler;
 import com.compsci.util.SloverseLogger;
 
 public class ConnectThread extends Thread {
@@ -37,8 +38,8 @@ public class ConnectThread extends Thread {
 	@Override
 	public void run() {
 		Socket clientSocket = new Socket();
-		hostAddress = LoginPanel.getIpField().getText();
-		portNumber = Integer.parseInt(LoginPanel.getPortField().getText());
+		hostAddress = LoginHandler.getIpAddress();
+		portNumber = LoginHandler.getPortNumber();
 
 		try {
 			ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Attempting to connect to server... " + hostAddress + " at port : " + portNumber));
@@ -57,7 +58,7 @@ public class ConnectThread extends Thread {
 			//Stupid thing is throwing an EOFException.
 			inStream = new ObjectInputStream(clientSocket.getInputStream());
 			
-			player = new Player(LoginPanel.getUsernameField().getText());
+			player = new Player(LoginHandler.getUsername());
 			ConnectionManager.sendData(player);
 			Object incoming;
 
