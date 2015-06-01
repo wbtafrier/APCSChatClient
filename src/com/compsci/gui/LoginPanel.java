@@ -118,6 +118,10 @@ public class LoginPanel extends JPanel {
 		return ipField;
 	}
 	
+	public static JTextField getPortField() {
+		return portField;
+	}
+	
 	public static JPanel getButtonPanel() {
 		return buttonPanel;
 	}

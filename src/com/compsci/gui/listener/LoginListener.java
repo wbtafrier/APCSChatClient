@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import com.compsci.core.SloverseClient;
 import com.compsci.gui.GuiOperations;
 import com.compsci.gui.LoginPanel;
 
@@ -14,6 +15,7 @@ public class LoginListener extends KeyAdapter implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(LoginPanel.getLoginButton())) {
 			GuiOperations.switchToConsole();
+			SloverseClient.connect();
 		}
 	}
 	

@@ -7,12 +7,12 @@ public class Player extends ClientUser {
 	private boolean isModerator;
 	private boolean isAdministrator;
 	
-	public Player(String userName, String password) {
-		super(EnumAuthorityLevel.PLAYER, userName, password);
+	public Player(String userName) {
+		super(EnumAuthorityLevel.PLAYER, userName);
 	}
 	
 	protected Player(EnumAuthorityLevel level, String userName, String password) {
-		super(level, userName, password);
+		super(level, userName);
 	}
 	
 	public boolean isModerator() {
@@ -45,7 +45,7 @@ public class Player extends ClientUser {
 	}
 	
 	public static Player initPlayer() {
-		return new Player("Spongeboob", "patrick");
+		return new Player("Spongeboob");
 		
 //		Tell client to show the login screen. (Where they can say their a new user, or enter a username and password.
 //		if not a new user and account is good, then let them enter.

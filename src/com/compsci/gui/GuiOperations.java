@@ -36,6 +36,7 @@ public class GuiOperations {
 				FrameHandle.getPropertiesItem().setEnabled(true);
 				FrameHandle.getFrame().revalidate();
 				FrameHandle.getFrame().repaint();
+				System.out.println("DONE");
 			}
 		}
 	}
