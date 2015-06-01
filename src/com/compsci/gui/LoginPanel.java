@@ -1,5 +1,6 @@
 package com.compsci.gui;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -32,6 +33,7 @@ public class LoginPanel extends JPanel {
 	private static JTextField portField = new JTextField(5);
 	
 	private static JPanel buttonPanel = new JPanel();
+	private static JLabel errorLabel = new JLabel("");
 	private static JButton loginButton = new JButton("Log-in");
 	
 	private static LoginListener loginListener = new LoginListener();
@@ -47,19 +49,31 @@ public class LoginPanel extends JPanel {
 		fieldPanel.setLayout(new GridLayout(3, 0));
 		usernameField.setBorder(BorderFactory.createCompoundBorder(usernameField.getBorder(), BorderFactory.createEmptyBorder(5, 2, 5, 2)));
 		usernameField.setToolTipText("Username");
+		usernameField.addActionListener(loginListener);
 		usernameField.addKeyListener(loginListener);
+		usernameField.addFocusListener(loginListener);
 		fieldPanel.add(usernameField);
 		fieldPanel.add(Box.createGlue());
 		
 		ipPanel.setLayout(new BoxLayout(ipPanel, BoxLayout.X_AXIS));
 		ipField.setBorder(BorderFactory.createCompoundBorder(ipField.getBorder(), BorderFactory.createEmptyBorder(5, 2, 5, 2)));
 		ipField.setToolTipText("Server IP Address");
+		ipField.addActionListener(loginListener);
+		ipField.addKeyListener(loginListener);
+		ipField.addFocusListener(loginListener);
 		ipPanel.add(ipField);
 		
 		portField.setBorder(BorderFactory.createCompoundBorder(portField.getBorder(), BorderFactory.createEmptyBorder(5, 2, 5, 2)));
 		portField.setToolTipText("Server Port Number");
+		portField.addActionListener(loginListener);
+		portField.addKeyListener(loginListener);
+		portField.addFocusListener(loginListener);
 		ipPanel.add(portField);
 		fieldPanel.add(ipPanel);
+		
+		buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+		errorLabel.setForeground(Color.RED);
+		buttonPanel.add(errorLabel);
 		
 		loginButton.addActionListener(loginListener);
 		loginButton.setToolTipText("Press this button to log-in!");
@@ -124,6 +138,10 @@ public class LoginPanel extends JPanel {
 	
 	public static JPanel getButtonPanel() {
 		return buttonPanel;
+	}
+	
+	public static JLabel getErrorLabel() {
+		return errorLabel;
 	}
 	
 	public static JButton getLoginButton() {
