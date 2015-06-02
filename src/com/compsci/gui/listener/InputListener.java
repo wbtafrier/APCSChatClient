@@ -7,14 +7,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import com.compsci.chat.ClientConsole;
 import com.compsci.chat.InputManager;
 import com.compsci.chat.Message;
 import com.compsci.core.SloverseClient;
 import com.compsci.gui.FrameHandle;
-import com.compsci.util.SloverseLogger;
 
 public class InputListener extends KeyAdapter implements ActionListener {
 

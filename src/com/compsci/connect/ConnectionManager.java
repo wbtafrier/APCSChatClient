@@ -8,7 +8,7 @@ import com.compsci.util.SloverseLogger;
 
 public class ConnectionManager {
 
-	public static void sendData(Object o) {
+	public synchronized static void sendData(Object o) {
 		
 		try {
 			SloverseClient.getConnectThread().getOutStream().writeObject(o);
