@@ -55,12 +55,12 @@ public class FrameHandle {
 			clientFrame = frame;
 			
 			customizeItem.addActionListener(menuListener);
-			customizeItem.setToolTipText("Modify the customize of the client console window.");
+			customizeItem.setToolTipText("Customize the client chat window.");
 			customizeItem.setEnabled(false);
 			fileMenu.add(customizeItem);
 			exitItem.addActionListener(menuListener);
 			exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_MASK));
-			exitItem.setToolTipText("Stops the server and exits the server window.");
+			exitItem.setToolTipText("Stops the client and exits the chat window.");
 			fileMenu.add(exitItem);
 			fileMenu.setToolTipText("File functions enable the user to interact with the client window.");
 			menuBar.add(fileMenu);
