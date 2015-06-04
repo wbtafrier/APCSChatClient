@@ -94,6 +94,7 @@ public class FrameHandle {
 		}
 		
 		outPane.setFont(new Font(fontName, Font.PLAIN, 12));
+		inField.setFont(new Font(fontName, Font.PLAIN, 12));
 		
 		inField.addActionListener(inputListener);
 		inField.addKeyListener(inputListener);

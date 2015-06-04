@@ -11,7 +11,7 @@ public class SloverseClient {
 	private static ConnectThread userThread;
 	
 	public static void main(String[] args) {
-		new ClientFrame("Sloverse Client");
+		new ClientFrame("Sloverse Chat");
 		userThread = new ConnectThread();
 	}
 	
