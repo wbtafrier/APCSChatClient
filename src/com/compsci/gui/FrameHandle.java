@@ -36,8 +36,8 @@ public class FrameHandle {
 	
 	private static JMenuBar menuBar = new JMenuBar();
 	private static JMenu fileMenu = new JMenu("File");
-	private static JMenuItem propertiesItem = new JMenuItem("Properties...", KeyEvent.VK_P);
-	private static PropertiesDialog propertiesDialog;
+	private static JMenuItem customizeItem = new JMenuItem("Customize...", KeyEvent.VK_P);
+	private static CustomizeDialog customizeDialog;
 	private static JMenuItem exitItem = new JMenuItem("Exit");
 	private static MenuListener menuListener = new MenuListener();
 	
@@ -54,10 +54,10 @@ public class FrameHandle {
 		if (frame != null) {		
 			clientFrame = frame;
 			
-			propertiesItem.addActionListener(menuListener);
-			propertiesItem.setToolTipText("Modify the properties of the client console window.");
-			propertiesItem.setEnabled(false);
-			fileMenu.add(propertiesItem);
+			customizeItem.addActionListener(menuListener);
+			customizeItem.setToolTipText("Modify the customize of the client console window.");
+			customizeItem.setEnabled(false);
+			fileMenu.add(customizeItem);
 			exitItem.addActionListener(menuListener);
 			exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_MASK));
 			exitItem.setToolTipText("Stops the server and exits the server window.");
@@ -93,8 +93,8 @@ public class FrameHandle {
 			fontName = "Courier New";
 		}
 		
-		outPane.setFont(new Font(fontName, Font.PLAIN, 12));
-		inField.setFont(new Font(fontName, Font.PLAIN, 12));
+		outPane.setFont(new Font(fontName, Font.PLAIN, 16));
+		inField.setFont(new Font(fontName, Font.PLAIN, 16));
 		
 		inField.addActionListener(inputListener);
 		inField.addKeyListener(inputListener);
@@ -147,8 +147,8 @@ public class FrameHandle {
 		return fileMenu;
 	}
 	
-	public static JMenuItem getPropertiesItem() {
-		return propertiesItem;
+	public static JMenuItem getCustomizeItem() {
+		return customizeItem;
 	}
 	
 	public static JMenuItem getExitItem() {
@@ -171,12 +171,12 @@ public class FrameHandle {
 		return inField;
 	}
 	
-	public static PropertiesDialog getPropertiesDialog() {
-		return propertiesDialog;
+	public static CustomizeDialog getCustomizeDialog() {
+		return customizeDialog;
 	}
 	
-	public static void setPropertiesDialog(PropertiesDialog prop) {
-		propertiesDialog = prop;
+	public static void setCustomizeDialog(CustomizeDialog prop) {
+		customizeDialog = prop;
 	}
 	
 	public static boolean isConsoleDisplayed() {
