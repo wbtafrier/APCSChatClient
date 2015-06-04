@@ -1,6 +1,7 @@
 package com.compsci.gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -20,6 +21,8 @@ import com.compsci.gui.listener.LoginListener;
 public class LoginPanel extends JPanel {
 
 	private static final long serialVersionUID = -6370808179302340905L;
+	
+	private static final Dimension DEFAULT_SIZE = new Dimension(300, 180);
 	
 	private static JPanel labelPanel = new JPanel();
 	private static JLabel usernameLabel = new JLabel("Enter Username:", SwingConstants.RIGHT);
@@ -83,6 +86,7 @@ public class LoginPanel extends JPanel {
 		this.add(fieldPanel);
 		this.add(buttonPanel);
 		this.addLoginGridBag();
+		this.setPreferredSize(DEFAULT_SIZE);
 	}
 	
 	private void addLoginGridBag() {

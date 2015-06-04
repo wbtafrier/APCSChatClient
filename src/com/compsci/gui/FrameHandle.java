@@ -1,5 +1,6 @@
 package com.compsci.gui;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -28,6 +29,9 @@ import com.compsci.util.DisplayInfo;
  * Provides setup information for the SloverseFrame and holds a handle to the frame.
  */
 public class FrameHandle {
+	
+	private static int fontSize = 16;
+	private static final Dimension DEFAULT_SIZE = new Dimension((int)(DisplayInfo.getScreenSize().width / 3), (int)(DisplayInfo.getScreenSize().height / 1.5));
 	
 	private static ClientFrame clientFrame;
 	
@@ -78,7 +82,8 @@ public class FrameHandle {
 	public static void setupConsole() {
 		addConsoleGridBag();
 		clientFrame.add(consolePanel);
-		
+		clientFrame.pack();
+		clientFrame.setLocationRelativeTo(null);
 		setConsoleDisplayed(true);
 		
 		outPane.addFocusListener(new PaneFocusListener());
@@ -93,8 +98,8 @@ public class FrameHandle {
 			fontName = "Courier New";
 		}
 		
-		outPane.setFont(new Font(fontName, Font.PLAIN, 16));
-		inField.setFont(new Font(fontName, Font.PLAIN, 16));
+		outPane.setFont(new Font(fontName, Font.PLAIN, fontSize));
+		inField.setFont(new Font(fontName, Font.PLAIN, fontSize));
 		
 		inField.addActionListener(inputListener);
 		inField.addKeyListener(inputListener);
@@ -125,6 +130,7 @@ public class FrameHandle {
 		
 		inField.setBorder(BorderFactory.createCompoundBorder(inField.getBorder(), BorderFactory.createEmptyBorder(5, 2, 5, 2)));
 		consolePanel.add(inField, gbc);
+		consolePanel.setPreferredSize(DEFAULT_SIZE);
 	}
 	
 	public static ClientFrame getFrame() {

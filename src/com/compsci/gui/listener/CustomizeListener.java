@@ -30,7 +30,7 @@ public class CustomizeListener extends WindowAdapter implements ActionListener, 
 			}
 			else if (e.getSource().equals(FrameHandle.getCustomizeDialog().doneButton)) {
 				String fontName = FrameHandle.getCustomizeDialog().fontDropdown.getSelectedItem().toString();
-				Font f = new Font(fontName, Font.PLAIN, 12);
+				Font f = new Font(fontName, Font.PLAIN, 16);
 				FrameHandle.getOutputPane().setFont(f);
 				FrameHandle.getInputField().setFont(f);
 				GuiOperations.closeCustomizeDialog();
