@@ -1,4 +1,4 @@
-package com.compsci.connect;
+package com.compsci.connection;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -55,7 +55,11 @@ public class ConnectThread extends Thread {
 				inStream = new ObjectInputStream(socket.getInputStream());
 				
 				player = new Player(LoginHandler.getUsername());
-				ConnectionManager.sendData(player);
+				if (!ConnectionManager.validatePlayer(socket, player)) {
+					ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Server blocked connection because this username is already in use on the server: " + LoginHandler.getUsername()));
+					isConnected = false;
+					return;
+				}
 				
 				Object incoming;
 				ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Connected successfully!"));
@@ -95,6 +99,10 @@ public class ConnectThread extends Thread {
 	
 	public ObjectOutputStream getOutStream() {
 		return outStream;
+	}
+	
+	public ObjectInputStream getInStream() {
+		return inStream;
 	}
 	
 	public boolean isConnected() {

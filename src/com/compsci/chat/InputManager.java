@@ -2,7 +2,7 @@ package com.compsci.chat;
 
 import java.util.logging.Level;
 
-import com.compsci.connect.ConnectionManager;
+import com.compsci.connection.ConnectionManager;
 import com.compsci.util.SloverseLogger;
 
 public class InputManager {
