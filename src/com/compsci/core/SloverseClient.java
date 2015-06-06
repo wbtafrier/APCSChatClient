@@ -12,21 +12,15 @@ public class SloverseClient {
 	
 	public static void main(String[] args) {
 		new ClientFrame("Sloverse Chat");
-		userThread = new ConnectThread();
 	}
 	
 	public static void shutdownClient() {
-		userThread.setConnected(false);
 		System.exit(0);
 	}
 	
 	public static void connect() {
-		userThread.start();
-	}
-	
-	public static void reconnect() {
 		userThread = new ConnectThread();
-		connect();
+		userThread.start();
 	}
 	
 	public static ConnectThread getConnectThread() {
