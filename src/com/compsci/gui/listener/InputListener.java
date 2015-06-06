@@ -25,13 +25,13 @@ public class InputListener extends KeyAdapter implements ActionListener {
 		
 		if (e.getSource().equals(FrameHandle.getInputField())) {
 			String rawInput = FrameHandle.getInputField().getText();
-			if (!SloverseClient.getConnectThread().isConnected()) {
+			if (!SloverseClient.getConnectThread().isConnected() && rawInput != null && !rawInput.isEmpty()) {
 				ClientConsole.printMessage(new Message(SloverseClient.SERVER, rawInput));
 				ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Not connected to any server!"));
 				resetInputField();
 				return;
 			}
-			else {
+			else if (rawInput != null && !rawInput.isEmpty()) {
 				Message input = new Message(SloverseClient.getConnectThread().getPlayer(), rawInput);
 				InputManager.sendMessage(input);
 				
