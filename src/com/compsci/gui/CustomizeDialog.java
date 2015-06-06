@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.compsci.gui.listener.CustomizeListener;
+import com.compsci.util.DisplayInfo;
 
 public class CustomizeDialog extends JDialog {
 
@@ -64,6 +65,7 @@ public class CustomizeDialog extends JDialog {
 		fontDropdown.setFont(new Font(fontDropdown.getSelectedItem().toString(), Font.PLAIN, 16));
 		fontDropdown.setRenderer(comboRenderer);
 		fontDropdown.addItemListener(customizeListener);
+		fontDropdown.setPrototypeDisplayValue(DisplayInfo.getLongestFont());
 		fontDropdown.setBorder(new EmptyBorder(0, 0, 0, 10));
 		fontPanel.add(fontDropdown);
 		
