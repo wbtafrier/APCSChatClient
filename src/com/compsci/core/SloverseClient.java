@@ -1,6 +1,6 @@
 package com.compsci.core;
 
-import com.compsci.connect.ConnectThread;
+import com.compsci.connection.ConnectThread;
 import com.compsci.gui.ClientFrame;
 import com.compsci.user.ServerUser;
 import com.compsci.user.User;
@@ -22,6 +22,11 @@ public class SloverseClient {
 	
 	public static void connect() {
 		userThread.start();
+	}
+	
+	public static void reconnect() {
+		userThread = new ConnectThread();
+		connect();
 	}
 	
 	public static ConnectThread getConnectThread() {

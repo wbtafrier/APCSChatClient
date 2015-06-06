@@ -44,9 +44,9 @@ public class Player extends ClientUser {
 		setAuthority(EnumAuthorityLevel.PLAYER);
 	}
 	
-	public static Player initPlayer() {
-		return new Player("Spongeboob");
-		
+//	public static Player initPlayer() {
+//		return new Player("Spongeboob");
+//		
 //		Tell client to show the login screen. (Where they can say their a new user, or enter a username and password.
 //		if not a new user and account is good, then let them enter.
 		
@@ -59,5 +59,5 @@ public class Player extends ClientUser {
 		
 //		for now it returns a new moderator
 //		return new Moderator(name, "Spongeboob");
-	}
+//	}
 }
