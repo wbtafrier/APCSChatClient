@@ -42,6 +42,7 @@ public class FrameHandle {
 	private static JMenu fileMenu = new JMenu("File");
 	private static JMenuItem customizeItem = new JMenuItem("Customize...", KeyEvent.VK_P);
 	private static CustomizeDialog customizeDialog;
+	private static JMenuItem logOutItem = new JMenuItem("Log Out");
 	private static JMenuItem exitItem = new JMenuItem("Exit");
 	private static MenuListener menuListener = new MenuListener();
 	
@@ -59,9 +60,15 @@ public class FrameHandle {
 			clientFrame = frame;
 			
 			customizeItem.addActionListener(menuListener);
+			customizeItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.SHIFT_DOWN_MASK + KeyEvent.CTRL_DOWN_MASK));
 			customizeItem.setToolTipText("Customize the client chat window.");
 			customizeItem.setEnabled(false);
 			fileMenu.add(customizeItem);
+			logOutItem.addActionListener(menuListener);
+			logOutItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0));
+			logOutItem.setToolTipText("Log out of your current server and return to the log-in screen.");
+			logOutItem.setEnabled(false);
+			fileMenu.add(logOutItem);
 			exitItem.addActionListener(menuListener);
 			exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, KeyEvent.ALT_MASK));
 			exitItem.setToolTipText("Stops the client and exits the chat window.");
@@ -155,6 +162,10 @@ public class FrameHandle {
 	
 	public static JMenuItem getCustomizeItem() {
 		return customizeItem;
+	}
+	
+	public static JMenuItem getLogOutItem() {
+		return logOutItem;
 	}
 	
 	public static JMenuItem getExitItem() {

@@ -48,6 +48,10 @@ public class LoginListener extends KeyAdapter implements ActionListener, FocusLi
 			return;
 		}
 		
+		if (field.getBackground().equals(LoginHandler.errorColor)) {
+			field.setBackground(Color.WHITE);
+		}
+		
 		if (field.equals(LoginPanel.getUsernameField())) {
 	    	if (((c < '0' || c > '9') && (c < 'A' || c > 'Z') && (c < 'a' || c > 'z')
 	    		&& c != '_' && c != KeyEvent.VK_BACK_SPACE)

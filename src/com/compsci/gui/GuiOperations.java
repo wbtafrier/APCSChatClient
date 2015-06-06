@@ -47,10 +47,28 @@ public class GuiOperations {
 				LoginPanel.setDisplayed(false);
 				
 				FrameHandle.setupConsole();
+				FrameHandle.getOutputPane().setText("");
+				FrameHandle.getInputField().setText("");
 				FrameHandle.getCustomizeItem().setEnabled(true);
+				FrameHandle.getLogOutItem().setEnabled(true);
 				FrameHandle.getFrame().revalidate();
 				FrameHandle.getFrame().repaint();
-				System.out.println("DONE");
+			}
+		}
+	}
+	
+	public static void switchToLogin() {
+		if (FrameHandle.isConsoleDisplayed()) {
+			if (FrameHandle.getFrame() != null) {
+				FrameHandle.getFrame().remove(FrameHandle.getConsolePanel());
+				FrameHandle.setConsoleDisplayed(false);
+				
+				FrameHandle.setupLogin();
+				LoginPanel.getErrorLabel().setText("");
+				FrameHandle.getCustomizeItem().setEnabled(false);
+				FrameHandle.getLogOutItem().setEnabled(false);
+				FrameHandle.getFrame().revalidate();
+				FrameHandle.getFrame().repaint();
 			}
 		}
 	}
