@@ -27,6 +27,7 @@ public class ConnectThread extends Thread {
 	
 	private ObjectOutputStream outStream;
 	private ObjectInputStream inStream;
+	private Socket socket;
 	
 	private Player player;
 	
@@ -39,53 +40,57 @@ public class ConnectThread extends Thread {
 		hostAddress = LoginHandler.getIpAddress();
 		portNumber = LoginHandler.getPortNumber();
 		
-		try (Socket socket = new Socket();) {
-			try {
-				ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Attempting to connect to server... " + hostAddress + " at port : " + portNumber));
-				socket.connect(new InetSocketAddress(hostAddress, portNumber), TIME_OUT);
-			} catch (IOException e) {
-				ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Timed out when trying to connect to the ip : " + hostAddress + " at port " + portNumber));
+		try {
+			socket = new Socket();
+			ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Attempting to connect to server... " + hostAddress + " at port : " + portNumber));
+			socket.connect(new InetSocketAddress(hostAddress, portNumber), TIME_OUT);
+		} catch (IOException e) {
+			ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Timed out when trying to connect to the ip : " + hostAddress + " at port " + portNumber));
+			isConnected = false;
+			return;
+		}
+		isConnected = true;
+		
+		try {
+			outStream = new ObjectOutputStream(socket.getOutputStream());
+			inStream = new ObjectInputStream(socket.getInputStream());
+			
+			player = new Player(LoginHandler.getUsername());
+			if (!ConnectionManager.validatePlayer(socket, player)) {
+				ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Server blocked connection because this username is already in use on the server: " + LoginHandler.getUsername()));
 				isConnected = false;
 				return;
 			}
-			isConnected = true;
 			
-			try {
-				outStream = new ObjectOutputStream(socket.getOutputStream());
-				inStream = new ObjectInputStream(socket.getInputStream());
-				
-				player = new Player(LoginHandler.getUsername());
-				if (!ConnectionManager.validatePlayer(socket, player)) {
-					ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Server blocked connection because this username is already in use on the server: " + LoginHandler.getUsername()));
-					isConnected = false;
-					return;
-				}
-				
-				Object incoming;
-				ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Connected successfully!"));
-				
-				while (isConnected && !socket.isClosed()) {
-					incoming = inStream.readObject();
-	
-					if (incoming != null) {
-						if (incoming instanceof Message) {
-							ChatManager.printMessage((Message) incoming);
-						}
+			Object incoming;
+			ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Connected successfully!"));
+			
+			while (isConnected && !socket.isClosed()) {
+				incoming = inStream.readObject();
+
+				if (incoming != null) {
+					if (incoming instanceof Message) {
+						ChatManager.printMessage((Message) incoming);
 					}
 				}
-			} catch (UnknownHostException e) {
-				SloverseLogger.logErrorMessage(Level.SEVERE, "Unknown host name. :( Could not connect to: " + hostAddress);
-				e.printStackTrace();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			} catch (SocketException e) {
-				SloverseLogger.logErrorMessage(Level.WARNING, "Connection Lost!" + e.getStackTrace());
-				ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Lost connection to the server."));
-				setConnected(false);
-				//Show message to bring the user back to home screen.
 			}
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (UnknownHostException e) {
+			SloverseLogger.logErrorMessage(Level.SEVERE, "Unknown host name. :( Could not connect to: " + hostAddress);
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SocketException e) {
+			SloverseLogger.logErrorMessage(Level.WARNING, "Connection Lost!" + e.getStackTrace());
+			ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Lost connection to the server."));
+			setConnected(false);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				socket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -107,5 +112,9 @@ public class ConnectThread extends Thread {
 	
 	public boolean isConnected() {
 		return isConnected;
+	}
+	
+	public Socket getSocket() {
+		return socket;
 	}
 }

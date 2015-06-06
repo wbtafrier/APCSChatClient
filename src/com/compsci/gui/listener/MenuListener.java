@@ -2,6 +2,7 @@ package com.compsci.gui.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
@@ -19,7 +20,12 @@ public class MenuListener implements ActionListener {
 		else if (e.getSource().equals(FrameHandle.getLogOutItem())) {
 			int option = JOptionPane.showConfirmDialog(FrameHandle.getFrame(), "Are you sure you would like to log out?", "Sloverse Chat - Log Out", JOptionPane.YES_NO_OPTION);
 			if (option == JOptionPane.YES_OPTION) {
-				SloverseClient.getConnectThread().setConnected(false);
+				try {
+					SloverseClient.getConnectThread().setConnected(false);
+					SloverseClient.getConnectThread().getSocket().close();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				GuiOperations.switchToLogin();
 			}
 			
