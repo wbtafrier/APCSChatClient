@@ -16,10 +16,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
+import javax.swing.border.Border;
 import javax.swing.text.DefaultCaret;
 import javax.swing.text.StyledDocument;
 
-import com.compsci.gui.listener.GuiListener;
 import com.compsci.gui.listener.InputListener;
 import com.compsci.gui.listener.MenuListener;
 import com.compsci.gui.listener.PaneFocusListener;
@@ -51,6 +51,7 @@ public class FrameHandle {
 	private static JScrollPane scrollPane = new JScrollPane(outPane);
 	
 	private static JTextField inField = new JTextField();
+	private static Border inBorder = inField.getBorder();
 	private static InputListener inputListener = new InputListener();
 	
 	private static boolean isConsoleDisplayed = false;
@@ -83,7 +84,6 @@ public class FrameHandle {
 	public static void setupLogin() {
 		clientFrame.add(loginPanel);
 		LoginPanel.setDisplayed(true);
-		clientFrame.addWindowListener(new GuiListener());
 	}
 	
 	public static void setupConsole() {
@@ -110,6 +110,7 @@ public class FrameHandle {
 		
 		inField.addActionListener(inputListener);
 		inField.addKeyListener(inputListener);
+		inField.requestFocusInWindow();
 	}
 	
 	private static void addConsoleGridBag() {
@@ -135,7 +136,7 @@ public class FrameHandle {
 		gbc.weightx = gbc.weighty = 0.0;
 		gbc.anchor = GridBagConstraints.PAGE_END;
 		
-		inField.setBorder(BorderFactory.createCompoundBorder(inField.getBorder(), BorderFactory.createEmptyBorder(5, 2, 5, 2)));
+		inField.setBorder(BorderFactory.createCompoundBorder(inBorder, BorderFactory.createEmptyBorder(5, 2, 5, 2)));
 		consolePanel.add(inField, gbc);
 		consolePanel.setPreferredSize(DEFAULT_SIZE);
 	}
