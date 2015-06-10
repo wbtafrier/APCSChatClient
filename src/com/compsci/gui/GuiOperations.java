@@ -3,6 +3,9 @@ package com.compsci.gui;
 import java.awt.Color;
 import java.util.Random;
 
+import com.compsci.connection.ConnectionManager;
+import com.compsci.user.User;
+
 public class GuiOperations {
 
 	private static Random rand = new Random();
@@ -49,6 +52,7 @@ public class GuiOperations {
 				FrameHandle.setupConsole();
 				FrameHandle.getOutputPane().setText("");
 				FrameHandle.getInputField().setText("");
+				FrameHandle.getPlayerListModel().clear();
 				FrameHandle.getCustomizeItem().setEnabled(true);
 				FrameHandle.getLogOutItem().setEnabled(true);
 				FrameHandle.getFrame().revalidate();
@@ -69,6 +73,15 @@ public class GuiOperations {
 				FrameHandle.getLogOutItem().setEnabled(false);
 				FrameHandle.getFrame().revalidate();
 				FrameHandle.getFrame().repaint();
+			}
+		}
+	}
+	
+	public static void addUserToList(User u) {
+		ConnectionManager.getUserList().add(u);
+		if (FrameHandle.isConsoleDisplayed()) {
+			if (FrameHandle.getFrame() != null && !FrameHandle.getPlayerListModel().contains(u.getName())) {
+				FrameHandle.getPlayerListModel().addElement(u.getName());
 			}
 		}
 	}

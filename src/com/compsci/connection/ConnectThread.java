@@ -13,7 +13,10 @@ import com.compsci.chat.ChatManager;
 import com.compsci.chat.ClientConsole;
 import com.compsci.chat.Message;
 import com.compsci.core.SloverseClient;
+import com.compsci.gui.FrameHandle;
+import com.compsci.gui.GuiOperations;
 import com.compsci.user.Player;
+import com.compsci.user.User;
 import com.compsci.util.LoginHandler;
 import com.compsci.util.SloverseLogger;
 
@@ -72,6 +75,11 @@ public class ConnectThread extends Thread {
 					if (incoming instanceof Message) {
 						ChatManager.printMessage((Message) incoming);
 					}
+					else if (incoming instanceof User) {
+						System.out.println("BEEP!");
+						User u = (User)incoming;
+						GuiOperations.addUserToList(u);
+					}
 				}
 			}
 		} catch (UnknownHostException e) {
@@ -83,6 +91,7 @@ public class ConnectThread extends Thread {
 			SloverseLogger.logErrorMessage(Level.WARNING, "Connection Lost!" + e.getStackTrace());
 			ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Lost connection to the server."));
 			setConnected(false);
+			FrameHandle.getPlayerListModel().clear();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
