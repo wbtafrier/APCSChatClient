@@ -1,5 +1,6 @@
 package com.compsci.connection;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -78,7 +79,6 @@ public class ConnectThread extends Thread {
 						ChatManager.printMessage((Message) incoming);
 					}
 					else if (incoming instanceof User) {
-						System.out.println("BEEP!");
 						User u = (User)incoming;
 						GuiOperations.addUserToList(u);
 					}
@@ -86,7 +86,6 @@ public class ConnectThread extends Thread {
 						UserAction ua = (UserAction)incoming;
 						String username = ua.getUsername();
 						EnumAction action = ua.getAction();
-						System.out.println(username + " " + action);
 						if (action == EnumAction.DISCONNECT) {
 							GuiOperations.removeUserFromList(username);
 						}
@@ -98,11 +97,11 @@ public class ConnectThread extends Thread {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		} catch (SocketException e) {
-			SloverseLogger.logErrorMessage(Level.WARNING, "Connection Lost!" + e.getStackTrace());
+		} catch (SocketException | EOFException e) {
+			SloverseLogger.logErrorMessage(Level.WARNING, "Connection Lost! " + e.getClass().toString());
 			ClientConsole.printMessage(new Message(SloverseClient.SERVER, "Lost connection to the server."));
 			setConnected(false);
-			FrameHandle.getPlayerListModel().clear();
+			GuiOperations.clearUserList();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

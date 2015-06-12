@@ -52,7 +52,7 @@ public class GuiOperations {
 				FrameHandle.setupConsole();
 				FrameHandle.getOutputPane().setText("");
 				FrameHandle.getInputField().setText("");
-				FrameHandle.getPlayerListModel().clear();
+				clearUserList();
 				FrameHandle.getCustomizeItem().setEnabled(true);
 				FrameHandle.getLogOutItem().setEnabled(true);
 				FrameHandle.getFrame().revalidate();
@@ -92,6 +92,13 @@ public class GuiOperations {
 			if (FrameHandle.getFrame() != null && FrameHandle.getPlayerListModel().contains(u)) {
 				FrameHandle.getPlayerListModel().removeElement(u);
 			}
+		}
+	}
+	
+	public static void clearUserList() {
+		ConnectionManager.getUserList().clear();
+		if (FrameHandle.getFrame() != null && !FrameHandle.getPlayerListModel().isEmpty()) {
+			FrameHandle.getPlayerListModel().clear();
 		}
 	}
 }
