@@ -87,8 +87,9 @@ public class GuiOperations {
 	}
 	
 	public static void removeUserFromList(String u) {
+		ConnectionManager.getUserList().remove(u);
 		if (FrameHandle.isConsoleDisplayed()) {
-			if (FrameHandle.getFrame() != null && !FrameHandle.getPlayerListModel().contains(u)) {
+			if (FrameHandle.getFrame() != null && FrameHandle.getPlayerListModel().contains(u)) {
 				FrameHandle.getPlayerListModel().removeElement(u);
 			}
 		}

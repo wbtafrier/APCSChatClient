@@ -6,8 +6,8 @@ public class UserAction implements Serializable {
 
 	private static final long serialVersionUID = 8021042238406256727L;
 	
-	private static String user;
-	private static EnumAction action;
+	private String user;
+	private EnumAction action;
 	
 	public UserAction(String username, EnumAction currentAction) {
 		user = username;

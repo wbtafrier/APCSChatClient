@@ -86,6 +86,7 @@ public class ConnectThread extends Thread {
 						UserAction ua = (UserAction)incoming;
 						String username = ua.getUsername();
 						EnumAction action = ua.getAction();
+						System.out.println(username + " " + action);
 						if (action == EnumAction.DISCONNECT) {
 							GuiOperations.removeUserFromList(username);
 						}
