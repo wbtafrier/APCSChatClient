@@ -15,8 +15,10 @@ import com.compsci.chat.Message;
 import com.compsci.core.SloverseClient;
 import com.compsci.gui.FrameHandle;
 import com.compsci.gui.GuiOperations;
+import com.compsci.user.EnumAction;
 import com.compsci.user.Player;
 import com.compsci.user.User;
+import com.compsci.user.UserAction;
 import com.compsci.util.LoginHandler;
 import com.compsci.util.SloverseLogger;
 
@@ -79,6 +81,14 @@ public class ConnectThread extends Thread {
 						System.out.println("BEEP!");
 						User u = (User)incoming;
 						GuiOperations.addUserToList(u);
+					}
+					else if (incoming instanceof UserAction) {
+						UserAction ua = (UserAction)incoming;
+						String username = ua.getUsername();
+						EnumAction action = ua.getAction();
+						if (action == EnumAction.DISCONNECT) {
+							GuiOperations.removeUserFromList(username);
+						}
 					}
 				}
 			}
