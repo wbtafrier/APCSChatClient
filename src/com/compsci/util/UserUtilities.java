@@ -3,11 +3,8 @@ package com.compsci.util;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
-import com.compsci.gui.FrameHandle;
 import com.compsci.gui.GuiOperations;
 import com.compsci.user.EnumAction;
-import com.compsci.user.EnumAuthorityLevel;
-import com.compsci.user.Player;
 import com.compsci.user.User;
 import com.compsci.user.UserAction;
 
@@ -46,13 +43,13 @@ public class UserUtilities {
 			else if (action.equals(EnumAction.MOD)) {
 				user.setModerator();
 			}
-			else if (action.equals(EnumAction.DEMOD)) {
+			else if (action.equals(EnumAction.UNMOD)) {
 				user.removeModerator();
 			}
 			else if (action.equals(EnumAction.ADMIN)) {
 				user.setAdministator();
 			}
-			else if (action.equals(EnumAction.DEADMIN)) {
+			else if (action.equals(EnumAction.UNADMIN)) {
 				user.removeAdministrator();
 			}
 			GuiOperations.refreshList();

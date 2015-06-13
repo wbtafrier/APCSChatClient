@@ -2,14 +2,12 @@ package com.compsci.connection;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.logging.Level;
 
 import com.compsci.chat.ClientConsole;
 import com.compsci.chat.Message;
 import com.compsci.core.SloverseClient;
 import com.compsci.user.Player;
-import com.compsci.user.User;
 import com.compsci.util.SloverseLogger;
 
 public class ConnectionManager {

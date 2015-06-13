@@ -92,6 +92,8 @@ public class FrameHandle {
 	
 	public static void setupLogin() {
 		clientFrame.add(loginPanel);
+		clientFrame.pack();
+		clientFrame.setLocationRelativeTo(null);
 		LoginPanel.setDisplayed(true);
 	}
 	
@@ -103,7 +105,7 @@ public class FrameHandle {
 		setConsoleDisplayed(true);
 		
 		if (scrollPaneSize == null) {
-			scrollPaneSize = FrameHandle.getScrollPane().getSize();
+			scrollPaneSize = new Dimension((int)(outPane.getWidth() / 2.5f), 0);
 		}
 		playerScrollPane.setPreferredSize(scrollPaneSize);
         playerScrollPane.setMinimumSize(playerScrollPane.getPreferredSize());

@@ -35,8 +35,10 @@ public class CustomizeDialog extends JDialog {
 	public JButton doneButton = new JButton("Done");
 	
 	public CustomizeListener customizeListener = new CustomizeListener();
+	@SuppressWarnings("rawtypes")
 	private FontComboRenderer comboRenderer = new FontComboRenderer();
 	
+	@SuppressWarnings("unchecked")
 	public CustomizeDialog() {
 		super(FrameHandle.getFrame(), "Sloverse Chat - Customize");
 		customizePanel.setLayout(new BoxLayout(customizePanel, BoxLayout.Y_AXIS));

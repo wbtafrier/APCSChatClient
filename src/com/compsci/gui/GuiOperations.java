@@ -3,7 +3,6 @@ package com.compsci.gui;
 import java.awt.Color;
 import java.util.Random;
 
-import com.compsci.connection.ConnectionManager;
 import com.compsci.user.User;
 import com.compsci.util.UserUtilities;
 
