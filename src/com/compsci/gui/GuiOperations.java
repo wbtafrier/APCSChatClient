@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.compsci.connection.ConnectionManager;
 import com.compsci.user.User;
+import com.compsci.util.UserUtilities;
 
 public class GuiOperations {
 
@@ -77,28 +78,47 @@ public class GuiOperations {
 		}
 	}
 	
-	public static void addUserToList(User u) {
-		ConnectionManager.getUserList().add(u);
+	public static void addUserToList(User user) {
+		if (!UserUtilities.getUserList().contains(user)) {
+			UserUtilities.getUserList().add(user);
+		}
+		
 		if (FrameHandle.isConsoleDisplayed()) {
-			if (FrameHandle.getFrame() != null && !FrameHandle.getPlayerListModel().contains(u.getName())) {
-				FrameHandle.getPlayerListModel().addElement(u.getName());
+			if (FrameHandle.getFrame() != null && !FrameHandle.getPlayerListModel().contains(user.getName())) {
+				FrameHandle.getPlayerListModel().addElement(user.getName());
 			}
 		}
 	}
 	
-	public static void removeUserFromList(String u) {
-		ConnectionManager.getUserList().remove(u);
+	public static void removeUserFromList(String username) {
+		for (User user : UserUtilities.getUserList()) {
+			if (user.getName().equals(username)) {
+				UserUtilities.getUserList().remove(user);
+				break;
+			}
+		}
+		
 		if (FrameHandle.isConsoleDisplayed()) {
-			if (FrameHandle.getFrame() != null && FrameHandle.getPlayerListModel().contains(u)) {
-				FrameHandle.getPlayerListModel().removeElement(u);
+			if (FrameHandle.getFrame() != null && FrameHandle.getPlayerListModel().contains(username)) {
+				FrameHandle.getPlayerListModel().removeElement(username);
 			}
 		}
 	}
 	
 	public static void clearUserList() {
-		ConnectionManager.getUserList().clear();
+		UserUtilities.getUserList().clear();
 		if (FrameHandle.getFrame() != null && !FrameHandle.getPlayerListModel().isEmpty()) {
 			FrameHandle.getPlayerListModel().clear();
+		}
+	}
+	
+	public static void refreshList() {
+		if (FrameHandle.getFrame() != null && !FrameHandle.getPlayerListModel().isEmpty()) {
+			FrameHandle.getPlayerListModel().clear();
+		}
+		
+		for (User user : UserUtilities.getUserList()) {
+			addUserToList(user);
 		}
 	}
 }

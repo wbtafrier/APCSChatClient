@@ -52,6 +52,7 @@ public class FrameHandle {
 	private static JTextPane outPane = new JTextPane();
 	private static StyledDocument doc = outPane.getStyledDocument();
 	private static JScrollPane scrollPane = new JScrollPane(outPane);
+	private static Dimension scrollPaneSize = null;
 	
 	private static DefaultListModel<String> listModel = new DefaultListModel<String>();
 	private static JList<String> playerList = new JList<String>(listModel);
@@ -101,7 +102,10 @@ public class FrameHandle {
 		clientFrame.setLocationRelativeTo(null);
 		setConsoleDisplayed(true);
 		
-		playerScrollPane.setPreferredSize(FrameHandle.getScrollPane().getSize());
+		if (scrollPaneSize == null) {
+			scrollPaneSize = FrameHandle.getScrollPane().getSize();
+		}
+		playerScrollPane.setPreferredSize(scrollPaneSize);
         playerScrollPane.setMinimumSize(playerScrollPane.getPreferredSize());
 		
 		outPane.addFocusListener(new PaneFocusListener());
@@ -124,6 +128,7 @@ public class FrameHandle {
 		inField.requestFocusInWindow();
 	}
 	
+	@SuppressWarnings("unchecked")
 	private static void addConsoleGridBag() {
 		GridBagLayout gbl = new GridBagLayout();
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -148,6 +153,7 @@ public class FrameHandle {
 		
 		playerList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         playerList.setSelectedIndex(-1);
+        playerList.setCellRenderer(new PlayerListCellRenderer());
         
 		consolePanel.add(playerScrollPane, gbc);
 		

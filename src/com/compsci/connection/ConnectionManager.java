@@ -14,8 +14,6 @@ import com.compsci.util.SloverseLogger;
 
 public class ConnectionManager {
 
-	private static ArrayList<User> userList = new ArrayList<User>();
-	
 	public synchronized static void sendData(Object o) {
 		
 		try {
@@ -45,7 +43,4 @@ public class ConnectionManager {
 		return false;
 	}
 	
-	public static ArrayList<User> getUserList() {
-		return userList;
-	}
 }

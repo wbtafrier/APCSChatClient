@@ -22,6 +22,7 @@ import com.compsci.user.User;
 import com.compsci.user.UserAction;
 import com.compsci.util.LoginHandler;
 import com.compsci.util.SloverseLogger;
+import com.compsci.util.UserUtilities;
 
 public class ConnectThread extends Thread {
 
@@ -84,11 +85,7 @@ public class ConnectThread extends Thread {
 					}
 					else if (incoming instanceof UserAction) {
 						UserAction ua = (UserAction)incoming;
-						String username = ua.getUsername();
-						EnumAction action = ua.getAction();
-						if (action == EnumAction.DISCONNECT) {
-							GuiOperations.removeUserFromList(username);
-						}
+						UserUtilities.handleUserAction(ua);
 					}
 				}
 			}
