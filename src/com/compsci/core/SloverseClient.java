@@ -1,6 +1,7 @@
 package com.compsci.core;
 
 import com.compsci.connection.ConnectThread;
+import com.compsci.file.FileManager;
 import com.compsci.gui.ClientFrame;
 import com.compsci.user.ServerUser;
 import com.compsci.user.User;
@@ -11,6 +12,7 @@ public class SloverseClient {
 	private static ConnectThread userThread;
 	
 	public static void main(String[] args) {
+		FileManager.initalizeStoragePath();
 		new ClientFrame("Sloverse Chat");
 	}
 	

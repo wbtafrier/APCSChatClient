@@ -11,6 +11,7 @@ import com.compsci.user.UserAction;
 public class UserUtilities {
 
 	private static ArrayList<User> userList = new ArrayList<User>();
+	private static EnumOS currentOS = null;
 	
 	public static ArrayList<User> getUserList() {
 		return userList;
@@ -57,5 +58,19 @@ public class UserUtilities {
 		else {
 			SloverseLogger.logErrorMessage(Level.WARNING, "Error in handling UserAction: found null class or fields");
 		}
+	}
+	
+	/**
+	 * This can only be set once.
+	 * @param os EnumOS corresponding to user's OS
+	 */
+	public static void setCurrentOS(EnumOS os) {
+		if (currentOS == null) {
+			currentOS = os;
+		}
+	}
+	
+	public static EnumOS getCurrentOS() {
+		return currentOS;
 	}
 }
