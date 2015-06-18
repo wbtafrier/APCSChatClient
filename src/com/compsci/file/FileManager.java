@@ -1,8 +1,12 @@
 package com.compsci.file;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.logging.Level;
 
 import com.compsci.util.EnumOS;
+import com.compsci.util.SloverseLogger;
 import com.compsci.util.UserUtilities;
 
 public final class FileManager {
@@ -31,22 +35,58 @@ public final class FileManager {
 				UserUtilities.setCurrentOS(EnumOS.LINUX);
 			}
 			else {
+				SloverseLogger.logErrorMessage(Level.INFO, "Operating system is not supported. Setting to \"other\". Sorry!");
 				UserUtilities.setCurrentOS(EnumOS.OTHER);
 			}
 		}
-		initDirectories();		
+		initDirectories();
+		initFiles();
 	}
 	
 	private static void initDirectories() {
-		(FileStructure.sloverseDir = FileStructure.appDir.down("Sloverse Chat")).makeDirectories();
-		(FileStructure.loginDir = FileStructure.sloverseDir.down("login")).makeDirectories();
+		(FileStructure.sloverseDir = FileStructure.appDir.down("SloverseChat")).makeDirectories();
+		(FileStructure.optionsDir = FileStructure.sloverseDir.down("options")).makeDirectory();
+		(FileStructure.logDir = FileStructure.sloverseDir.down("logs")).makeDirectory();
+	}
+	
+	private static void initFiles() {
+//		createNewFile(FileStructure.optionsDir, "options.txt");
+//		String options = "username=" + System.lineSeparator() + "ip=" + System.lineSeparator() + "port=";
+//		WritingHelper.writeFile(FileStructure.optionsDir, "options.txt", options);
+//		String s = ReadingHelper.readFile(FileStructure.optionsDir, "options.txt", 2, 3);
+//		System.out.println(s);
+//		
+//		System.out.println(ReadingHelper.getImageFromResourceFile("test.png"));
 	}
 	
 	public static File retrieveFile(Directory d, String fileName) {
-		return d.getFileFromDir(fileName);
+		try {
+			return d.getFileFromDir(fileName);
+		} catch (FileNotFoundException e) {
+			SloverseLogger.logErrorMessage(Level.SEVERE, "File: " + fileName + " not found after attempt to retrieve it!");
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
-	public static File retrieveFile(String parentPath, String fileName) {
-		return (new Directory(parentPath)).getFileFromDir(fileName);
+	/**
+	 * WARNING: This is for ACTUAL files only. Directories should use Directory.mkdir()
+	 * @return File was successfully created. False if it already exists or failed to be created.
+	 */
+	public static boolean createNewFile(Directory d, String fileName) {
+		File f = new File(d.getFilePath() + File.separator + fileName);
+		if (f.exists()) {
+			return false;
+		}
+		
+		try {
+			f.createNewFile();
+		} catch (IOException e) {
+			SloverseLogger.logErrorMessage(Level.SEVERE, "File could not be created!");
+			SloverseLogger.logErrorMessage(Level.SEVERE, "Failed to create: " + d.getFilePath() + File.separator + fileName);
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }

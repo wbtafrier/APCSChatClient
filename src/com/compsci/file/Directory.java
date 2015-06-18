@@ -1,6 +1,7 @@
 package com.compsci.file;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
@@ -56,8 +57,13 @@ public class Directory {
 		return directories;
 	}
 	
-	public File getFileFromDir(String fileName) {
+	public File getFileFromDir(String fileName) throws FileNotFoundException {
 		File f = new File(this.getFilePath() + File.separator + fileName);
+		if (!f.exists()) {
+			SloverseLogger.logErrorMessage(Level.SEVERE, "The file you are trying to write to does not exist!");
+			SloverseLogger.logErrorMessage(Level.SEVERE, "File: " + this.getFilePath() + File.separator + fileName);
+			throw new FileNotFoundException("File " + this.getFilePath() + File.separator + fileName + " could not be found");
+		}
 		return f;
 	}
 	
@@ -88,6 +94,18 @@ public class Directory {
 			se.printStackTrace();
 		}
 		return mkdirs;
+	}
+	
+	public boolean makeDirectory() {
+		boolean mkdir = false;
+		try {
+			mkdir = this.toFile().mkdir();
+		}
+		catch (SecurityException se) {
+			SloverseLogger.logErrorMessage(Level.SEVERE, "Denied access to directory: " + this.getFilePath());
+			se.printStackTrace();
+		}
+		return mkdir;
 	}
 	
 	public String getFilePath() {
