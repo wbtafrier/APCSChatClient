@@ -105,7 +105,7 @@ public class FrameHandle {
 		setConsoleDisplayed(true);
 		
 		if (scrollPaneSize == null) {
-			scrollPaneSize = new Dimension((int)(outPane.getWidth() / 2.5f), 0);
+			scrollPaneSize = new Dimension(100, 0);
 		}
 		playerScrollPane.setPreferredSize(scrollPaneSize);
         playerScrollPane.setMinimumSize(playerScrollPane.getPreferredSize());
