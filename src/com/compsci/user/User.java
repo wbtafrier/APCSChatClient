@@ -9,6 +9,7 @@ public abstract class User implements Serializable {
 	private String name;
 	private EnumAuthorityLevel authority;
 	private boolean isMuted;
+	private boolean isAFK;
 	
 	private boolean isModerator;
 	private boolean isAdministrator;
@@ -30,8 +31,20 @@ public abstract class User implements Serializable {
 		return name;
 	}
 	
+	public void setName(String newName) {
+		name = newName;
+	}
+	
 	public boolean isMuted() {
 		return isMuted;
+	}
+	
+	public boolean isAFK() {
+		return isAFK;
+	}
+	
+	public void setAFK() {
+		isAFK = !isAFK;
 	}
 	
 	public boolean isModerator() {

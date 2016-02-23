@@ -21,6 +21,7 @@ public class UserUtilities {
 		if (ua != null && ua.getUsername() != null && ua.getAction() != null) {
 			String username = ua.getUsername();
 			EnumAction action = ua.getAction();
+			Object arguments = ua.getArguments();
 			
 			if (action.equals(EnumAction.DISCONNECT)) {
 				GuiOperations.removeUserFromList(username);
@@ -52,6 +53,22 @@ public class UserUtilities {
 			}
 			else if (action.equals(EnumAction.UNADMIN)) {
 				user.removeAdministrator();
+			}
+			else if (action.equals(EnumAction.NICK)) {
+				if (arguments instanceof String) {
+					user.setName((String)arguments);
+				}
+				else {
+					SloverseLogger.logErrorMessage(Level.WARNING, "Uh oh, type mismatch in /nick arguments.");
+				}
+			}
+			else if (action.equals(EnumAction.AFK)) {
+				if (arguments instanceof Boolean) {
+					user.setAFK();
+				}
+				else {
+					SloverseLogger.logErrorMessage(Level.WARNING, "Uh oh, type mismatch in /nick arguments.");
+				}					
 			}
 			GuiOperations.refreshList();
 		}

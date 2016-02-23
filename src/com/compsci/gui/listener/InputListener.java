@@ -54,6 +54,7 @@ public class InputListener extends KeyAdapter implements ActionListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getSource().equals(FrameHandle.getInputField())) {
+			
 			if (e.getKeyCode() == KeyEvent.VK_UP || (!Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_NUM_LOCK) && e.getKeyCode() == KeyEvent.VK_NUMPAD8)) {
 				
 				if (currentHistoryLocation == -1) {

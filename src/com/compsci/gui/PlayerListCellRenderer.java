@@ -50,8 +50,16 @@ public class PlayerListCellRenderer implements ListCellRenderer {
 		
 		if (user.isMuted()) {
 			Map attributes = font.getAttributes();
+			fontColor = Color.DARK_GRAY;
 			attributes.put(TextAttribute.STRIKETHROUGH, TextAttribute.STRIKETHROUGH_ON);
 			font = new Font(attributes);
+		}
+		
+		if (user.isAFK()) {
+			fontColor = Color.LIGHT_GRAY;
+		}
+		else {
+			fontColor = Color.BLACK;
 		}
 		
 		if (user.isModerator()) {
